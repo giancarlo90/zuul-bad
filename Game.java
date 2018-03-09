@@ -96,7 +96,6 @@ public class Game
         System.out.println("World of Zuul is a new, incredibly boring adventure game.");
         System.out.println("Type 'help' if you need help.");
         System.out.println();
-        System.out.println("You are " + currentRoom.getDescription());
         printLocationInfo();
     }
 
@@ -178,7 +177,6 @@ public class Game
         }
         else {
             currentRoom = nextRoom;
-            System.out.println("You are " + currentRoom.getDescription());
             printLocationInfo();
         }
     }
@@ -203,6 +201,7 @@ public class Game
      * Metodo para imprimir la informacion de la localizacion
      */
     private void printLocationInfo(){
+        System.out.println("You are " + currentRoom.getDescription());
         System.out.print("Exits: ");
         if(currentRoom.northExit != null) {
             System.out.print("north ");
