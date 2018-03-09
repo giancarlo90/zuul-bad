@@ -35,7 +35,7 @@ public class Game
     private void createRooms()
     {
         Room entrada, restaurante, cafeteria, dormitorios, salones, cocinas, banos,
-        alfombras, utensilios, decoracion, outlet, salida;
+        alfombras, utensilios, decoracion, outlet, tienda, salida;
       
         // create the rooms
         entrada = new Room("Entrada de Ikea");
@@ -49,21 +49,22 @@ public class Game
         utensilios = new Room("en la seccion de utensilios de cocina");
         decoracion = new Room("en la seccion de decoracion");
         outlet = new Room("en la seccion de productos rebajados");
+        tienda = new Room("en la tienda de productos");
         salida = new Room("en la salida");
         
         // initialise room exits
-        entrada.setExits(null, cafeteria, dormitorios, restaurante);
-        restaurante.setExits(null, entrada, null, null);
-        cafeteria.setExits(null, null, null, entrada);
-        dormitorios.setExits(entrada, null, null, salones);
-        salones.setExits(null, dormitorios, cocinas, null);
-        cocinas.setExits(salones, banos, utensilios, null);
-        utensilios.setExits(cocinas, null, null, null);
-        banos.setExits(null, alfombras, decoracion, cocinas);
-        alfombras.setExits(null, null, outlet, banos);
-        outlet.setExits(alfombras, null, null, decoracion);
-        decoracion.setExits(banos, outlet, salida, null);
-        salida.setExits(decoracion, null, null, null);
+        entrada.setExits(null, cafeteria, dormitorios, restaurante, null);
+        restaurante.setExits(null, entrada, null, null, null);
+        cafeteria.setExits(null, null, null, entrada, null);
+        dormitorios.setExits(entrada, null, null, salones, null);
+        salones.setExits(null, dormitorios, cocinas, null, null);
+        cocinas.setExits(salones, banos, utensilios, null, null);
+        utensilios.setExits(cocinas, null, null, null, null);
+        banos.setExits(null, alfombras, decoracion, cocinas, null);
+        alfombras.setExits(null, null, outlet, banos, null);
+        outlet.setExits(alfombras, null, null, decoracion, tienda);
+        decoracion.setExits(banos, outlet, salida, null, null);
+        salida.setExits(decoracion, null, null, null, null);
 
         currentRoom = entrada;  // start game outside
     }
@@ -171,6 +172,9 @@ public class Game
         if(direction.equals("west")) {
             nextRoom = currentRoom.westExit;
         }
+        if(direction.equals("southEast")) {
+            nextRoom = currentRoom.southEastExit;
+        }
 
         if (nextRoom == null) {
             System.out.println("There is no door!");
@@ -214,6 +218,9 @@ public class Game
         }
         if(currentRoom.westExit != null) {
             System.out.print("west ");
+        }
+        if(currentRoom.southEastExit != null) {
+            System.out.print("southEast ");
         }
         System.out.println();
     }
