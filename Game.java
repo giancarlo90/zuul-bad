@@ -35,7 +35,7 @@ public class Game
     private void createRooms()
     {
         Room entrada, restaurante, cafeteria, dormitorios, salones, cocinas, banos,
-        alfombras, utensilios, decoracion, outlet, tienda, salida;
+        alfombras, sabanas, utensilios, decoracion, outlet, tienda, salida;
       
         // create the rooms
         entrada = new Room("Entrada de Ikea");
@@ -46,6 +46,7 @@ public class Game
         cocinas = new Room("en la seccion de cocinas");
         banos = new Room("en la seccion de baños");
         alfombras = new Room("en la seccion de alfombras");
+        sabanas = new Room("en la seccion de sabanas");
         utensilios = new Room("en la seccion de utensilios de cocina");
         decoracion = new Room("en la seccion de decoracion");
         outlet = new Room("en la seccion de productos rebajados");
@@ -53,18 +54,20 @@ public class Game
         salida = new Room("en la salida");
         
         // initialise room exits
-        entrada.setExits(null, cafeteria, dormitorios, restaurante, null);
-        restaurante.setExits(null, entrada, null, null, null);
-        cafeteria.setExits(null, null, null, entrada, null);
-        dormitorios.setExits(entrada, null, null, salones, null);
-        salones.setExits(null, dormitorios, cocinas, null, null);
-        cocinas.setExits(salones, banos, utensilios, null, null);
-        utensilios.setExits(cocinas, null, null, null, null);
-        banos.setExits(null, alfombras, decoracion, cocinas, null);
-        alfombras.setExits(null, null, outlet, banos, null);
-        outlet.setExits(alfombras, null, null, decoracion, tienda);
-        decoracion.setExits(banos, outlet, salida, null, null);
-        salida.setExits(decoracion, null, null, null, null);
+        entrada.setExits(null, cafeteria, dormitorios, restaurante, null, null);
+        restaurante.setExits(null, entrada, null, null, null, null);
+        cafeteria.setExits(null, null, null, entrada, null, null);
+        dormitorios.setExits(entrada, null, null, salones, null, null);
+        salones.setExits(null, dormitorios, cocinas, null, null, null);
+        cocinas.setExits(salones, banos, utensilios, null, null, null);
+        utensilios.setExits(cocinas, null, null, null, null, null);
+        banos.setExits(null, alfombras, decoracion, cocinas, null, null);
+        alfombras.setExits(null, null, outlet, banos, null, sabanas);
+        sabanas.setExits(null, null, null, null, alfombras, null);
+        outlet.setExits(alfombras, null, null, decoracion, tienda, null);
+        tienda.setExits(null, null, null, null, null, outlet);
+        decoracion.setExits(banos, outlet, salida, null, null, null);
+        salida.setExits(decoracion, null, null, null, null, null);
 
         currentRoom = entrada;  // start game outside
     }
