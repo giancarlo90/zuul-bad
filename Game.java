@@ -19,7 +19,7 @@ public class Game
 {
     private Parser parser;
     private Room currentRoom;
-        
+
     /**
      * Create the game and initialise its internal map.
      */
@@ -36,7 +36,7 @@ public class Game
     {
         Room entrada, restaurante, cafeteria, dormitorios, salones, cocinas, banos,
         alfombras, sabanas, utensilios, decoracion, outlet, tienda, salida;
-      
+
         // create the rooms
         entrada = new Room("Entrada de Ikea");
         restaurante = new Room("en el restaurante");
@@ -52,23 +52,36 @@ public class Game
         outlet = new Room("en la seccion de productos rebajados");
         tienda = new Room("en la tienda de productos");
         salida = new Room("en la salida");
-        
-        // initialise room exits
-        entrada.setExits(null, cafeteria, dormitorios, restaurante, null, null);
-        restaurante.setExits(null, entrada, null, null, null, null);
-        cafeteria.setExits(null, null, null, entrada, null, null);
-        dormitorios.setExits(entrada, null, null, salones, null, null);
-        salones.setExits(null, dormitorios, cocinas, null, null, null);
-        cocinas.setExits(salones, banos, utensilios, null, null, null);
-        utensilios.setExits(cocinas, null, null, null, null, null);
-        banos.setExits(null, alfombras, decoracion, cocinas, null, null);
-        alfombras.setExits(null, null, outlet, banos, null, sabanas);
-        sabanas.setExits(null, null, null, null, alfombras, null);
-        outlet.setExits(alfombras, null, null, decoracion, tienda, null);
-        tienda.setExits(null, null, null, null, null, outlet);
-        decoracion.setExits(banos, outlet, salida, null, null, null);
-        salida.setExits(decoracion, null, null, null, null, null);
 
+        // initialise room exits
+        entrada.setExit("east", cafeteria);
+        entrada.setExit("south", dormitorios);
+        entrada.setExit("west",restaurante);
+        restaurante.setExit("east", entrada);
+        cafeteria.setExit("west", entrada);
+        dormitorios.setExit("north", entrada);
+        dormitorios.setExit("west",salones);
+        salones.setExit("east", dormitorios);
+        salones.setExit("south", cocinas);
+        cocinas.setExit("north", salones);
+        cocinas.setExit("east", banos);
+        cocinas.setExit("south",utensilios);
+        utensilios.setExit("north",cocinas);
+        banos.setExit("east", alfombras);
+        banos.setExit("south", decoracion);
+        banos.setExit("west", cocinas);
+        alfombras.setExit("south", outlet);
+        alfombras.setExit("west", banos);
+        alfombras.setExit("northWest", sabanas);
+        sabanas.setExit("southEast", alfombras);
+        outlet.setExit("north", alfombras);
+        outlet.setExit("west",decoracion);
+        outlet.setExit("southEast", tienda);
+        tienda.setExit("nothWest", outlet);
+        decoracion.setExit("north", banos);
+        decoracion.setExit("east", outlet);
+        decoracion.setExit("south", salida);
+        salida.setExit("north", decoracion);
         currentRoom = entrada;  // start game outside
     }
 
@@ -81,7 +94,7 @@ public class Game
 
         // Enter the main command loop.  Here we repeatedly read commands and
         // execute them until the game is over.
-                
+
         boolean finished = false;
         while (! finished) {
             Command command = parser.getCommand();
@@ -189,7 +202,7 @@ public class Game
             return true;  // signal that we want to quit
         }
     }
-    
+
     /**
      * Metodo para imprimir la informacion de la localizacion
      */
@@ -197,4 +210,5 @@ public class Game
         System.out.println("You are " + currentRoom.getDescription());
         System.out.println(currentRoom.getExitString());
     }
+
 }
