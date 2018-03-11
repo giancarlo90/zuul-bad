@@ -31,7 +31,7 @@ public class Room
         this.description = description;
         salidasConSecciones = new HashMap<>();
     }
-    
+
     /**
      * Define an exit from this room.
      * @param direction The direction of the exit.
@@ -40,7 +40,7 @@ public class Room
     public void setExit(String direction, Room neighbor){
         salidasConSecciones.put(direction, neighbor);
     }
-    
+
     /**
      * @return The description of the room.
      */
@@ -69,7 +69,17 @@ public class Room
         for(String cadena :cadenaDeSalidas){
             exits += cadena + " ";
         } 
-            
+
         return exits;
+    }
+
+    /**
+     * Return a long description of this room, of the form:
+     *     You are in the 'name of room'
+     *     Exits: north west southwest
+     * @return A description of the room, including exits.
+     */
+    public String getLongDescription(){
+        return "You are in the " + description + ".\n"+ getExitString();
     }
 }
