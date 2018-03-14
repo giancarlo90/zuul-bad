@@ -137,6 +137,9 @@ public class Game
         else if (commandWord.equals("go")) {
             goRoom(command);
         }
+        else if (commandWord.equals("look")) {
+            look();
+        }
         else if (commandWord.equals("quit")) {
             wantToQuit = quit(command);
         }
@@ -209,6 +212,11 @@ public class Game
     private void printLocationInfo(){
         System.out.println(currentRoom.getLongDescription());
         System.out.println();
+    }
+
+    private void look() 
+    {
+        System.out.println(currentRoom.getLongDescription());
     }
 
 }
