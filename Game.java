@@ -160,7 +160,7 @@ public class Game
     private void printHelp() 
     {
         System.out.println("Your command words are:");
-        parser.showCommands();
+        System.out.println(parser.showCommands());
     }
 
     /** 
