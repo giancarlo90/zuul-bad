@@ -38,20 +38,20 @@ public class Game
         alfombras, sabanas, utensilios, decoracion, outlet, tienda, salida;
 
         // create the rooms
-        entrada = new Room("Entrada de Ikea");
-        restaurante = new Room("en el restaurante");
-        cafeteria = new Room("en la cafeteria");
-        dormitorios = new Room("en la seccion de dormitorios");
-        salones = new Room("en la seccion de salones");
-        cocinas = new Room("en la seccion de cocinas");
-        banos = new Room("en la seccion de baños");
-        alfombras = new Room("en la seccion de alfombras");
-        sabanas = new Room("en la seccion de sabanas");
-        utensilios = new Room("en la seccion de utensilios de cocina");
-        decoracion = new Room("en la seccion de decoracion");
-        outlet = new Room("en la seccion de productos rebajados");
-        tienda = new Room("en la tienda de productos");
-        salida = new Room("en la salida");
+        entrada = new Room("Entrada de Ikea",null);
+        restaurante = new Room("en el restaurante",null);
+        cafeteria = new Room("en la cafeteria", null);
+        dormitorios = new Room("en la seccion de dormitorios", new Item("cama", 70));
+        salones = new Room("en la seccion de salones", new Item("sofa", 85));
+        cocinas = new Room("en la seccion de cocinas", null);
+        banos = new Room("en la seccion de baños",null);
+        alfombras = new Room("en la seccion de alfombras",null);
+        sabanas = new Room("en la seccion de sabanas",null);
+        utensilios = new Room("en la seccion de utensilios de cocina",null);
+        decoracion = new Room("en la seccion de decoracion", new Item("cuadro", 5));
+        outlet = new Room("en la seccion de productos rebajados",null);
+        tienda = new Room("en la tienda de productos", null);
+        salida = new Room("en la salida", null);
 
         // initialise room exits
         entrada.setExit("east", cafeteria);
