@@ -19,6 +19,7 @@ public class Game
 {
     private Parser parser;
     private Room currentRoom;
+    private Room previousRoom;
 
     /**
      * Create the game and initialise its internal map.
@@ -82,14 +83,13 @@ public class Game
         decoracion.setExit("east", outlet);
         decoracion.setExit("south", salida);
         salida.setExit("north", decoracion);
-        
+
         entrada.addItem("folletos",2);
         dormitorios.addItem("cama", 70);
         salones.addItem("sofa", 85);
         decoracion.addItem("cuadro", 5);
         dormitorios.addItem("armario", 30);
-        
-        
+
         currentRoom = entrada;  // start game outside
     }
 
@@ -154,6 +154,10 @@ public class Game
         else if (commandWord.equals("quit")) {
             wantToQuit = quit(command);
         }
+        else if (commandWord.equals("back")) {
+            currentRoom = previousRoom;
+            printLocationInfo();
+        }
 
         return wantToQuit;
     }
@@ -193,6 +197,7 @@ public class Game
             System.out.println("There is no door!");
         }
         else {
+            previousRoom = currentRoom;
             currentRoom = nextRoom;
             printLocationInfo();
         }
