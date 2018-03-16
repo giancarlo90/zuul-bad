@@ -41,14 +41,14 @@ public class Game
         entrada = new Room("Entrada de Ikea",null);
         restaurante = new Room("en el restaurante",null);
         cafeteria = new Room("en la cafeteria", null);
-        dormitorios = new Room("en la seccion de dormitorios", new Item("cama", 70));
-        salones = new Room("en la seccion de salones", new Item("sofa", 85));
+        dormitorios = new Room("en la seccion de dormitorios", null);
+        salones = new Room("en la seccion de salones", null);
         cocinas = new Room("en la seccion de cocinas", null);
         banos = new Room("en la seccion de baños",null);
         alfombras = new Room("en la seccion de alfombras",null);
         sabanas = new Room("en la seccion de sabanas",null);
         utensilios = new Room("en la seccion de utensilios de cocina",null);
-        decoracion = new Room("en la seccion de decoracion", new Item("cuadro", 5));
+        decoracion = new Room("en la seccion de decoracion", null);
         outlet = new Room("en la seccion de productos rebajados",null);
         tienda = new Room("en la tienda de productos", null);
         salida = new Room("en la salida", null);
@@ -82,6 +82,14 @@ public class Game
         decoracion.setExit("east", outlet);
         decoracion.setExit("south", salida);
         salida.setExit("north", decoracion);
+        
+        entrada.addItem("folletos",2);
+        dormitorios.addItem("cama", 70);
+        salones.addItem("sofa", 85);
+        decoracion.addItem("cuadro", 5);
+        dormitorios.addItem("armario", 30);
+        
+        
         currentRoom = entrada;  // start game outside
     }
 
