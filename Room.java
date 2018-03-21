@@ -95,4 +95,8 @@ public class Room
     public void addItem(String descripcion, int peso){
         it.add(new Item(descripcion,peso));
     }
+
+    public ArrayList<Item> getItems(){
+        return it;
+    }
 }

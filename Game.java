@@ -1,4 +1,5 @@
 import java.util.Stack;
+import java.util.ArrayList;
 /**
  *  This class is the main class of the "World of Zuul" application. 
  *  "World of Zuul" is a very simple, text based adventure game.  Users 
@@ -22,6 +23,9 @@ public class Game
     private Room currentRoom;
     private Room previousRoom;
     private Stack<Room> pila;
+    private ArrayList<Item> bag;
+    private int pesoMaximo;
+    private int pesoTransportado;
 
     /**
      * Create the game and initialise its internal map.
@@ -31,6 +35,9 @@ public class Game
         createRooms();
         parser = new Parser();
         pila = new Stack<>();
+        bag = new ArrayList<>();
+        pesoMaximo = 85;
+        pesoTransportado = 0;
     }
 
     /**
@@ -160,6 +167,15 @@ public class Game
         else if (commandWord.equals("back")) {
             back();
         }
+        else if (commandWord.equals("take")) {
+            takeIntoBag(command);
+        }
+        else if (commandWord.equals("drop")) {
+            drop(command);
+        }
+        else if (commandWord.equals("items")) {
+            showItems();
+        }
 
         return wantToQuit;
     }
@@ -244,5 +260,88 @@ public class Game
             currentRoom = pila.pop();
         }
         printLocationInfo();
+    }
+
+    /**
+     * Metodo para coger objetos.
+     * @param it    es el nombre del objeto a coger
+     */
+    private void takeIntoBag(Command command){
+        if(!command.hasSecondWord()) {
+            // if there is no second word, we don't know what to take...
+            System.out.println("Take what?");
+            return;
+        }
+
+        String item = command.getSecondWord();
+        Item it = null;
+        boolean objetoCogido = false; //variable para parar el bucle en caso de que coger el objeto
+        boolean existeObjeto = false; //variable para comprobar si el objeto existe
+
+        for(int i=0; i < currentRoom.getItems().size(); i++){
+            if (currentRoom.getItems().get(i).getDescription().equals(item) && !objetoCogido) {
+                it = currentRoom.getItems().get(i);
+                int pesoObjetoActual = it.getWeight();
+                existeObjeto = true;
+                if((pesoTransportado + pesoObjetoActual) <= pesoMaximo){
+                    bag.add(it);
+                    pesoTransportado += pesoObjetoActual;
+                    System.out.println("Has metido un/a(s) " + it.getDescription() + " de " + pesoObjetoActual +
+                        " kg. Ahora tu mochila pesa: " + pesoTransportado + " kg.");
+                    currentRoom.getItems().remove(it);
+                    objetoCogido = true;
+                    printLocationInfo();
+                }
+                else{
+                    System.out.println("No puedes coger este objeto.");
+                }
+            }
+        }
+        if(existeObjeto == false)   {
+            System.out.println("No existe este objeto en esta seccion.");
+        }
+    }
+
+    /**
+     * Metodo para soltar objetos.
+     * @param it    es el nombre del objeto a coger
+     */
+    private void drop(Command command){
+        if(!command.hasSecondWord()) {
+            // if there is no second word, we don't know what to take...
+            System.out.println("Drop what?");
+            return;
+        }
+        String item = command.getSecondWord();
+        Item it = null;
+        boolean objetoSoltado = false;
+
+        for(int i = 0; i < bag.size(); i++){
+            if(bag.get(i).getDescription().equals(item) && !objetoSoltado){
+                it = bag.get(i);
+                int pesoObjetoActual = it.getWeight();
+                pesoTransportado -= pesoObjetoActual;
+                currentRoom.getItems().add(it);
+                System.out.println("Has soltado un/a(s) " + it.getDescription() + " de " + pesoObjetoActual +
+                    " kg. Ahora tu mochila pesa: " + pesoTransportado + " kg.");
+                bag.remove(it);
+                objetoSoltado = true;
+                printLocationInfo();
+            }
+        }
+    }
+
+    /**
+     * Metodo para mostrar los objetos que tenemos en la mochila
+     */
+    private void showItems(){
+        if(bag.size() > 0){ 
+            for(int i = 0; i < bag.size(); i++){
+                System.out.println("Tienes un/a(s) " + bag.get(i).getDescription() + " de " + bag.get(i).getWeight() + " kg.");
+            }
+        }
+        else{
+            System.out.println("No tienes objetos en la mochila.");
+        }
     }
 }
