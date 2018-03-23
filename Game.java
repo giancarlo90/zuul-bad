@@ -84,11 +84,11 @@ public class Game
         decoracion.setExit("south", salida);
         salida.setExit("north", decoracion);
 
-        entrada.addItem("folletos",2);
-        dormitorios.addItem("cama", 70);
-        salones.addItem("sofa", 85);
-        decoracion.addItem("cuadro", 5);
-        dormitorios.addItem("armario", 30);
+        entrada.addItem("folletos de productos","folletos",2);
+        dormitorios.addItem("cama de matrimonio","cama", 70);
+        salones.addItem("sofa de piel","sofa", 85);
+        decoracion.addItem("cuadro de Picasso","cuadro", 5);
+        dormitorios.addItem("armario para la entrada","armario", 30);
 
         return entrada;  // start game en la entrada
     }
@@ -144,7 +144,7 @@ public class Game
         }
         else if (commandWord.equals("go")) {
             jugador.goRoom(command);
-            printLocationInfo();
+            jugador.look();
         }
         else if (commandWord.equals("look")) {
             jugador.look();
@@ -157,7 +157,11 @@ public class Game
         }
         else if (commandWord.equals("back")) {
             jugador.back();
-            printLocationInfo();
+            jugador.look();
+        }
+        else if (commandWord.equals("take")) {
+            jugador.take(command);
+            jugador.look();
         }
 
         return wantToQuit;

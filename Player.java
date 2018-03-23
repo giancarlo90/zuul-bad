@@ -1,4 +1,6 @@
 import java.util.Stack;
+import java.util.ArrayList;
+
 /**
  * Clase para implementar jugadores al juego
  * 
@@ -10,6 +12,7 @@ public class Player
     // instance variables - replace the example below with your own
     private Room currentRoom;
     private Stack<Room> pila;
+    private ArrayList<Item> bag;
 
     /**
      * Constructor for objects of class Player
@@ -18,8 +21,9 @@ public class Player
     {
         currentRoom = habitacion;
         pila = new Stack<>();
+        bag = new ArrayList<>();
     }
-    
+
     /**
      * Metodo que devuelve la posicion actual del jugador
      */
@@ -53,7 +57,7 @@ public class Player
             currentRoom = nextRoom;
         }
     }
-    
+
     /**
      * Metodo para ver la habitacion en la que estamos y los objetos que hay alrededor
      */
@@ -77,5 +81,21 @@ public class Player
         if(!pila.isEmpty()){
             currentRoom = pila.pop();
         }
+    }
+
+    /**
+     * Metodo para coger objetos
+     */
+    public void take(Command command){
+        if(!command.hasSecondWord()) {
+            // if there is no second word, we don't know what to take...
+            System.out.println("Take what?");
+            return;
+        }
+
+        String item = command.getSecondWord();
+        
+        bag.add(currentRoom.lookForItems(item));
+        currentRoom.removeItem(currentRoom.lookForItems(item));
     }
 }
