@@ -92,7 +92,48 @@ public class Room
         return descripcion;
     }
 
-    public void addItem(String descripcion, int peso){
-        it.add(new Item(descripcion,peso));
+    /**
+     * Metodo para añadir objetos
+     */
+    public void addItem(String descripcion, String id, int peso, boolean sePuedeCoger){
+        it.add(new Item(descripcion,id,peso, sePuedeCoger));
+    }
+
+    /**
+     * Otro metodo para añadir objetos
+     */
+    public void addItems(Item item){
+        it.add(item);
+    }
+
+    /**
+     * Metodo que devuelve el item buscado por su id introducido por parametro
+     */
+    public Item lookForItems(String id){
+        Item item = null;
+        boolean existeObjeto = false; //variable para comprobar si el objeto existe
+        boolean itemEncontrado = false; //variable para parar el bucle cuando encontremos el objeto
+        int i = 0; //contador para el bucle
+
+        while(i < it.size() && !itemEncontrado){
+            if (it.get(i).getId().equals(id)) {
+                item = it.get(i);
+                itemEncontrado = true;
+                existeObjeto = true;
+            }
+            i++;
+        }
+
+        if(existeObjeto == false)   {
+            System.out.println("No existe este objeto en esta seccion.");
+        }
+        return item;
+    }
+
+    /**
+     * Metodo que borra un objeto
+     */
+    public void removeItem(Item item){
+        it.remove(item);
     }
 }
