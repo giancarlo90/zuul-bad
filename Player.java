@@ -96,13 +96,15 @@ public class Player
         }
 
         String item = command.getSecondWord();
-        if(currentRoom.lookForItems(item).getCoger() == true){
-            bag.add(currentRoom.lookForItems(item));
-            pesoTransportado += currentRoom.lookForItems(item).getWeight();
-            currentRoom.removeItem(currentRoom.lookForItems(item));
-        }
-        else{
-            System.out.println(">>Este objeto no se puede coger");
+        if(currentRoom.lookForItems(item) != null){
+            if(currentRoom.lookForItems(item).getCoger() == true){
+                bag.add(currentRoom.lookForItems(item));
+                pesoTransportado += currentRoom.lookForItems(item).getWeight();
+                currentRoom.removeItem(currentRoom.lookForItems(item));
+            }
+            else{
+                System.out.println(">>Este objeto no se puede coger");
+            }
         }
     }
 
@@ -119,5 +121,37 @@ public class Player
             System.out.println("No tienes objetos en la mochila.");
         }
         System.out.println("El peso total que llevas en tu mochila es de: " + pesoTransportado + " kg." );
+    }
+
+    /**
+     * Metodo para coger objetos
+     */
+    public void drop(Command command){
+        if(!command.hasSecondWord()) {
+            // if there is no second word, we don't know what to drop...
+            System.out.println("Drop what?");
+            return;
+        }
+
+        String item = command.getSecondWord();
+        Item itemActual = null;
+        boolean existeObjeto = false; //variable para comprobar si el objeto existe
+        boolean itemEncontrado = false; //variable para parar el bucle cuando encontremos el objeto
+        int i = 0; //contador para el bucle
+
+        while(i < bag.size() && !itemEncontrado){
+            if (bag.get(i).getId().equals(item)) {
+                itemActual = bag.get(i);
+                itemEncontrado = true;
+                existeObjeto = true;
+                currentRoom.addItems(itemActual);
+                bag.remove(itemActual);
+                pesoTransportado -= itemActual.getWeight();
+            }
+            i++;
+        }
+        if(existeObjeto == false)   {
+            System.out.println("No existe este objeto en la mochila.");
+        }
     }
 }

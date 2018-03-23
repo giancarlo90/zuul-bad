@@ -100,6 +100,13 @@ public class Room
     }
 
     /**
+     * Otro metodo para añadir objetos
+     */
+    public void addItems(Item item){
+        it.add(item);
+    }
+
+    /**
      * Metodo que devuelve el item buscado por su id introducido por parametro
      */
     public Item lookForItems(String id){
@@ -123,7 +130,7 @@ public class Room
         return item;
     }
 
-        /**
+    /**
      * Metodo que borra un objeto
      */
     public void removeItem(Item item){
