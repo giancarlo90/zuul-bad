@@ -11,16 +11,18 @@ public class Item
     private String itemDescription;
     private String id;
     private int itemWeight;
+    private boolean sePuedeCoger;
 
     /**
      * Constructor for objects of class Item
      */
-    public Item(String itemDescription, String id, int itemWeight)
+    public Item(String itemDescription, String id, int itemWeight, boolean sePuedeCoger)
     {
         // initialise instance variables
         this.itemDescription = itemDescription;
         this.id = id;
         this.itemWeight = itemWeight;
+        this.sePuedeCoger = sePuedeCoger;
     }
 
     /**
@@ -45,5 +47,12 @@ public class Item
     public String getId()
     {
         return id;
+    }
+    
+    /**
+     * Metodo que devuelve si el objeto se puede coger o no
+     */
+    public boolean getCoger(){
+        return sePuedeCoger;
     }
 }

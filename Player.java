@@ -94,8 +94,12 @@ public class Player
         }
 
         String item = command.getSecondWord();
-        
-        bag.add(currentRoom.lookForItems(item));
-        currentRoom.removeItem(currentRoom.lookForItems(item));
+        if(currentRoom.lookForItems(item).getCoger() == true){
+            bag.add(currentRoom.lookForItems(item));
+            currentRoom.removeItem(currentRoom.lookForItems(item));
+        }
+        else{
+            System.out.println(">>Este objeto no se puede coger");
+        }
     }
 }
