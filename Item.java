@@ -48,7 +48,7 @@ public class Item
     {
         return id;
     }
-    
+
     /**
      * Metodo que devuelve si el objeto se puede coger o no
      */

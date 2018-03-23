@@ -13,6 +13,7 @@ public class Player
     private Room currentRoom;
     private Stack<Room> pila;
     private ArrayList<Item> bag;
+    private int pesoTransportado;
 
     /**
      * Constructor for objects of class Player
@@ -22,6 +23,7 @@ public class Player
         currentRoom = habitacion;
         pila = new Stack<>();
         bag = new ArrayList<>();
+        pesoTransportado = 0;
     }
 
     /**
@@ -96,6 +98,7 @@ public class Player
         String item = command.getSecondWord();
         if(currentRoom.lookForItems(item).getCoger() == true){
             bag.add(currentRoom.lookForItems(item));
+            pesoTransportado += currentRoom.lookForItems(item).getWeight();
             currentRoom.removeItem(currentRoom.lookForItems(item));
         }
         else{
@@ -115,5 +118,6 @@ public class Player
         else{
             System.out.println("No tienes objetos en la mochila.");
         }
+        System.out.println("El peso total que llevas en tu mochila es de: " + pesoTransportado + " kg." );
     }
 }
