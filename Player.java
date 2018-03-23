@@ -14,6 +14,7 @@ public class Player
     private Stack<Room> pila;
     private ArrayList<Item> bag;
     private int pesoTransportado;
+    private int pesoMaximo; 
 
     /**
      * Constructor for objects of class Player
@@ -24,6 +25,7 @@ public class Player
         pila = new Stack<>();
         bag = new ArrayList<>();
         pesoTransportado = 0;
+        pesoMaximo = 80;
     }
 
     /**
@@ -97,13 +99,18 @@ public class Player
 
         String item = command.getSecondWord();
         if(currentRoom.lookForItems(item) != null){
-            if(currentRoom.lookForItems(item).getCoger() == true){
-                bag.add(currentRoom.lookForItems(item));
-                pesoTransportado += currentRoom.lookForItems(item).getWeight();
-                currentRoom.removeItem(currentRoom.lookForItems(item));
+            if((pesoTransportado + currentRoom.lookForItems(item).getWeight()) <= pesoMaximo){
+                if(currentRoom.lookForItems(item).getCoger() == true){
+                    bag.add(currentRoom.lookForItems(item));
+                    pesoTransportado += currentRoom.lookForItems(item).getWeight();
+                    currentRoom.removeItem(currentRoom.lookForItems(item));
+                }
+                else{
+                    System.out.println(">>Este objeto no se puede coger");
+                }
             }
             else{
-                System.out.println(">>Este objeto no se puede coger");
+                System.out.println("El objeto no cabe en tu mochila");
             }
         }
     }
