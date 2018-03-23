@@ -102,4 +102,18 @@ public class Player
             System.out.println(">>Este objeto no se puede coger");
         }
     }
+
+    /**
+     * Metodo que muestra los objetos que lleva el jugador en la mochila
+     */
+    public void items(){
+        if(bag.size() > 0){ 
+            for(int i = 0; i < bag.size(); i++){
+                System.out.println("Tienes un/a(s) " + bag.get(i).getDescription() + " de " + bag.get(i).getWeight() + " kg.");
+            }
+        }
+        else{
+            System.out.println("No tienes objetos en la mochila.");
+        }
+    }
 }

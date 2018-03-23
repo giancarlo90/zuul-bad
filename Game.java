@@ -163,6 +163,9 @@ public class Game
             jugador.take(command);
             jugador.look();
         }
+        else if (commandWord.equals("items")) {
+            jugador.items();
+        }
 
         return wantToQuit;
     }
