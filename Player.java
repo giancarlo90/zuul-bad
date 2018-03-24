@@ -151,6 +151,7 @@ public class Player
                 existeObjeto = true;
                 bag.remove(itemActual);
                 pesoTransportado -= itemActual.getWeight();
+                currentRoom.addItems(itemActual);
             }
             i++;
         }
@@ -179,7 +180,6 @@ public class Player
                 itemActual = bag.get(i);
                 existeObjeto = true;
                 if(itemActual.getEspecial() == true){
-                    currentRoom.addItems(itemActual);
                     bag.remove(itemActual);
                     pesoTransportado -= itemActual.getWeight();
                     pesoMaximo += 40;
