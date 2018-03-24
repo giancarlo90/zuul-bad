@@ -95,8 +95,8 @@ public class Room
     /**
      * Metodo para añadir objetos
      */
-    public void addItem(String descripcion, String id, int peso, boolean sePuedeCoger){
-        it.add(new Item(descripcion,id,peso, sePuedeCoger));
+    public void addItem(String descripcion, String id, int peso, boolean sePuedeCoger, boolean itemEspecial){
+        it.add(new Item(descripcion,id,peso, sePuedeCoger, itemEspecial));
     }
 
     /**

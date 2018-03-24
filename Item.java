@@ -12,17 +12,19 @@ public class Item
     private String id;
     private int itemWeight;
     private boolean sePuedeCoger;
+    private boolean itemEspecial;
 
     /**
      * Constructor for objects of class Item
      */
-    public Item(String itemDescription, String id, int itemWeight, boolean sePuedeCoger)
+    public Item(String itemDescription, String id, int itemWeight, boolean sePuedeCoger, boolean itemEspecial)
     {
         // initialise instance variables
         this.itemDescription = itemDescription;
         this.id = id;
         this.itemWeight = itemWeight;
         this.sePuedeCoger = sePuedeCoger;
+        this.itemEspecial = itemEspecial;
     }
 
     /**
@@ -54,5 +56,12 @@ public class Item
      */
     public boolean getCoger(){
         return sePuedeCoger;
+    }
+
+    /**
+     * Metodo que devuelve si el objeto es especial o no
+     */
+    public boolean getEspecial(){
+        return itemEspecial;
     }
 }

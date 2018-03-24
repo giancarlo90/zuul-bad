@@ -143,17 +143,53 @@ public class Player
         String item = command.getSecondWord();
         Item itemActual = null;
         boolean existeObjeto = false; //variable para comprobar si el objeto existe
-        boolean itemEncontrado = false; //variable para parar el bucle cuando encontremos el objeto
         int i = 0; //contador para el bucle
 
-        while(i < bag.size() && !itemEncontrado){
+        while(i < bag.size() && !existeObjeto){
             if (bag.get(i).getId().equals(item)) {
                 itemActual = bag.get(i);
-                itemEncontrado = true;
                 existeObjeto = true;
                 currentRoom.addItems(itemActual);
                 bag.remove(itemActual);
                 pesoTransportado -= itemActual.getWeight();
+            }
+            i++;
+        }
+        if(existeObjeto == false)   {
+            System.out.println("No existe este objeto en la mochila.");
+        }
+    }
+
+    /**
+     * Metodo para beber los objetos especiales
+     */
+    public void drink(Command command){
+        if(!command.hasSecondWord()) {
+            // if there is no second word, we don't know what to drink...
+            System.out.println("Drink what?");
+            return;
+        }
+
+        String item = command.getSecondWord();
+        Item itemActual = null;
+        boolean existeObjeto = false; //variable para comprobar si el objeto existe
+        int i = 0; //contador para el bucle
+
+        while(i < bag.size() && !existeObjeto){
+            if (bag.get(i).getId().equals(item)) {
+                itemActual = bag.get(i);
+                existeObjeto = true;
+                if(itemActual.getEspecial() == true){
+                    currentRoom.addItems(itemActual);
+                    bag.remove(itemActual);
+                    pesoTransportado -= itemActual.getWeight();
+                    pesoMaximo += 40;
+                    System.out.println("El peso maximo que puedes transportar en tu mochila ha aumentado, ahora el peso maximo de tu mochila es de "+
+                        pesoMaximo + " kg.");
+                }
+                else{
+                    System.out.println("No se puede ejecutar el comando drink sobre este objeto.");
+                }
             }
             i++;
         }
