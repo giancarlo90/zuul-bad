@@ -149,7 +149,6 @@ public class Player
             if (bag.get(i).getId().equals(item)) {
                 itemActual = bag.get(i);
                 existeObjeto = true;
-                currentRoom.addItems(itemActual);
                 bag.remove(itemActual);
                 pesoTransportado -= itemActual.getWeight();
             }
